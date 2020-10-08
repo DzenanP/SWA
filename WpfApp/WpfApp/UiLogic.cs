@@ -3,37 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using WpfApp_Example01;
 
-namespace WpfApp_Example01
+namespace SimpleWPF_Example
 {
-    public class UiLogic
+    public class UILogic
     {
         public List<Transportation> WaitingList { get; set; }
-
         public List<Transportation> ReadyList { get; set; }
-         public UiLogic()
-         {
-            WaitingList = new List<Transportation>();
-            ReadyList = new List<Transportation>();
-             LoadData();
-         }
+        public List<CargoItem> Details { get; set; }
 
-        private void LoadData()
+        public UILogic()
+        {
+            WaitingList = new List<Transportation>();
+            GenerateDemoEntries();
+        }
+
+        private void GenerateDemoEntries()
         {
             WaitingList.Add(new Transportation()
             {
-                Destination = "Wien",
-                StartingPoint = "Salzburg",
                 Countdown = 5,
-                CargoItems = new List<CargoItem>()
+                Destination = "Vienna",
+                Source = "Linz",
+                Cargo = new List<CargoItem>()
                 {
-                    new CargoItem(){
-                Amount = 5000,
-                Description = "Manner Schnitten",
-                Weight = 1000 },
+                    new CargoItem()
+                    {
+                        Description = "Manna Schnitten",
+                        Amount=1000,
+                        Weight=2
+                    },
+                    new CargoItem()
+                    {
+                        Description = "Auer Torten Ecken",
+                        Amount=2000,
+                        Weight=3
+                    }
                 }
             });
+            DispatcherTimer timer= new DispatcherTimer();
+
         }
     }
 }
